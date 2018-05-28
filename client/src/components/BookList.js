@@ -7,7 +7,14 @@ export default graphql(getBooksQuery)( props => (
     <div>
         {props.data.loading 
             ? <h2>Cargando</h2>
-            : <ul>{props.data.books.map(b => <li key={b.id}>{b.name}</li>)}</ul>
+            : <ul>{props.data.books
+                .map(b => 
+                <li 
+                    key={b.id} 
+                    onClick={() => props.selectBook(b.id)}>
+                    {b.name}
+                </li>)}
+            </ul>
         }
     </div>
 ))

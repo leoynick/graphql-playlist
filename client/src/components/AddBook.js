@@ -14,13 +14,12 @@ class AddBook extends Component {
                 genre: this.state.genre,
                 author: this.state.authorId
             },
-            refetchQueries: [{ query:getBooksQuery }]
+            refetchQueries: [{ query: getBooksQuery }]
         })
     }
 
     render() {
         const { loading, authors } = this.props.getAuthorsQuery
-
         return (
             <div>
                 <form id="add-book" onSubmit={e => this.submitForm(e)}>
@@ -35,9 +34,10 @@ class AddBook extends Component {
                     <div className="field">
                         <label>Author:</label>
                         <select onChange={ e => this.setState({ authorId: e.target.value}) }>
+                            <option>Select Author</option>
                             {loading 
                             ? <option>Loading...</option>
-                            : authors && authors.map(a => <option key={a.id}>{a.name}</option>)}
+                            : authors && authors.map(a => <option key={a.id} value={a.id} >{a.name}</option>)}
                         </select>
                     </div> 
                     <button>+</button>
@@ -49,5 +49,5 @@ class AddBook extends Component {
 
 export default compose(
     graphql(getAuthorsQuery, { name : 'getAuthorsQuery'}),
-    graphql(addBookMutation, { name: 'addBookMutation'})
+    graphql(addBookMutation, { name : 'addBookMutation'})
 )(AddBook)
